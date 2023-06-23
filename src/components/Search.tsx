@@ -1,25 +1,49 @@
+import axios from 'axios';
 import { useState } from 'react';
-import {AsyncPaginate} from 'react-select-async-paginate';
+import { AsyncPaginate } from 'react-select-async-paginate';
 
-interface SearchProps{
-    handleSearchChange:(value:string)=>void;
+import { options, url } from '../libs/apiData';
+import { cityType } from '../type';
+
+interface SearchProps {
+    handleSearchChange: (value: string) => void;
 }
 
-function Search({handleSearchChange}:SearchProps) {
-    const [search,setSearch]=useState("");
-    const handleChange=(searchData:string)=>{
+
+
+function Search({ handleSearchChange }: SearchProps) {
+    const [search, setSearch] = useState("");
+    const handleChange = (searchData: string) => {
         setSearch(searchData)
         handleSearchChange(searchData)
     }
+    const loadOptions = (value: string) => {
+        // console.log(value)
+       return axios.get(`${url}cities?minPopulation=10000&namePrefix=${value}`, options)
+            .then(res => {
+                return {
+                    options: res.data.data.map((city: cityType) => {
+                        return {
+                            value: `${city.latitude} ${city.longitude}`,
+                            label: `${city.name},${city.countryCode}`
+                        }
+                    })
+                }
+            })
+            .catch(err => console.log(err))
 
-  return (
-    <AsyncPaginate
-     placeholder="Search the city.."
-     value={search}
-     //@ts-ignore
-     onChange={handleChange}
-    />
-  )
+    }
+    return (
+        <AsyncPaginate
+            placeholder="Search the city.."
+            debounceTimeout={700}
+            value={search}
+            //@ts-ignore
+            onChange={handleChange}
+            //@ts-ignore
+            loadOptions={loadOptions}
+        />
+    )
 }
 
 export default Search;
