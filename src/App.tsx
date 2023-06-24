@@ -8,15 +8,15 @@ import { openWeatherUrl } from './libs/apiData';
 import { searchDataProps } from './type';
 import MyCityWeather from './components/MyCityWeather';
 import "./App.css"
-import MyCityForecast from './components/CityForecast';
+import CityForecast from './components/CityForecast';
 
 
 function App() {
   const [searchedWeather, setSearchedWeather] = useState();
+  const [searchedForecast, setSearchedForecast] = useState();
   const [myCityWeather,setMyCityWeather]=useState()
   const [myCityForecast,setMyCityForecast]=useState()
-  const [forecast, setForecast] = useState();
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+  const { coords} =
     useGeolocated({
       positionOptions: {
         enableHighAccuracy: false,
@@ -38,18 +38,16 @@ function App() {
           const forecastResponse = res[1].data;
           setMyCityWeather(weatherResponse);
           setMyCityForecast(forecastResponse);
-          console.log(weatherResponse)
-          console.log(forecastResponse)
         })
         .catch(err => console.log(err))
     }
     fetchWeather()
 
   }, [currentLat, currentLon])
-  // 
+  /**********************************************************
+   * THIS SEARCH FUNCTION HANDLED BY COUNTRY SEARCH COMPONENT
+   ***********************************************************/
   const handleSearchChange = (searchData: searchDataProps) => {
-
-    // console.log(searchData)
     const [latitude, longitude] = searchData.value.split(" ");
 
     const endPoints =
@@ -63,13 +61,15 @@ function App() {
         const weatherResponse = res[0].data;
         const forecastResponse = res[1].data;
         setSearchedWeather({ location: searchData.label, ...weatherResponse });
-        console.log(weatherResponse)
-        console.log(forecastResponse)
+        setSearchedForecast(forecastResponse);
+        // console.log(weatherResponse)
+        // console.log(forecastResponse)
       })
       .catch(err => console.log(err))
   }
-  //data fetch
-
+  /**********************************************************
+   * THIS SEARCH FUNCTION HANDLED BY COUNTRY SEARCH COMPONENT
+   ***********************************************************/
   return (
     <>
       <div className="skyBackground">
@@ -77,14 +77,14 @@ function App() {
 
           <Search handleSearchChange={handleSearchChange} />
         </div>
-        <div className="flex justify-between px-[5%]">
-        <div className="">
-        <MyCityWeather MyCityWeather={myCityWeather}/>
-        <MyCityForecast data={myCityForecast}/>
-        </div>
+        <div className="flex justify-between px-[5%] py-12">
         <div className="">
         {searchedWeather && <CurrentWeather currentWeather={searchedWeather} />}
-
+        {searchedForecast && <CityForecast data={searchedForecast}/>}
+        </div>
+        <div className="">
+        <MyCityWeather MyCityWeather={myCityWeather}/>
+        <CityForecast data={myCityForecast}/>
         </div>
         </div>
       </div>

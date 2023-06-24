@@ -16,3 +16,7 @@
 .accordionBackground{
     background: linear-gradient(to right, #0acffe 0%, #495aff 100%);
 }
+
+.searchedCitySky{
+    background: linear-gradient(to top, #209cff 0%, #68e0cf 100%);
+}

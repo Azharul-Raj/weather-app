@@ -6,15 +6,14 @@ interface MyCityForecastProps{
 }
 
 
-function MyCityForecast({data}:MyCityForecastProps) {
-    
+function CityForecast({data}:MyCityForecastProps) {
     return (
         <div className='w-[500px]'>
             {
-                data?.list.slice(0,7).map((weather,idx)=><Accordion key={idx} id={idx} weather={weather}/>)
+                data?.list?.slice(0,7).map((weather,idx)=><Accordion key={idx} id={idx} weather={weather}/>)
             }
         </div>
     )
 }
 
-export default MyCityForecast;
+export default CityForecast;

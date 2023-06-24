@@ -1,3 +1,5 @@
+import {useGeolocated} from 'react-geolocated'
+
 import { WeatherType } from "../type";
 import "../App.css"
 
@@ -6,6 +8,21 @@ interface CurrentWeatherProps{
 }
 
 function MyCityWeather({MyCityWeather}:CurrentWeatherProps) {
+  const { isGeolocationEnabled } =
+    useGeolocated({
+      positionOptions: {
+        enableHighAccuracy: false,
+      },
+      // userDecisionTimeout: 5000,
+    });
+
+    if(!isGeolocationEnabled){
+      return (
+        <div className="text-4xl font-bold">
+          PLEASE ENABLE YOUR LOCATION.
+        </div>
+      )
+    }
 
   return (
     <div className="flex justify-center items-center">
