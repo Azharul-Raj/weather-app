@@ -12,6 +12,7 @@ export interface searchDataProps{
 
 export interface currentWeatherType{
     location:string;
+    name:string;
     main:Temperature;
     weather:WeatherData;
     wind:Wind;

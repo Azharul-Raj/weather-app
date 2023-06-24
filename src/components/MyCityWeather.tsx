@@ -1,21 +1,22 @@
 import { currentWeatherType } from "../type";
 
 interface CurrentWeatherProps{
-  currentWeather?:currentWeatherType
+  MyCityWeather?:currentWeatherType
 }
 
-function CurrentWeather({currentWeather}:CurrentWeatherProps) {
+function MyCityWeather({MyCityWeather}:CurrentWeatherProps) {
+  console.log(MyCityWeather?.weather[0].icon)
 
   return (
     <div className="flex justify-center items-center">
     <div className='bg-[#3BB878] lg:w-[500px] shadow rounded-lg '>
       <div className="px-6 py-6 relative">
           <div className="flex justify-center">
-            <h5 className="mb-0 font-medium text-xl text-white">Delhi,IN</h5>
+            <h5 className="mb-0 font-medium text-xl text-white">Your City  {MyCityWeather?.name}</h5>
           </div>
         <div className="flex mb-4 justify-between items-center">
           <div className="">
-            <img src={`icons/${currentWeather?.weather[0]?.icon}`} alt="sky image" />
+            <img src={`icons/${MyCityWeather?.weather[0]?.icon}.png`} alt="sky image" />
 
           </div>
           <div className="text-right">
@@ -45,4 +46,4 @@ function CurrentWeather({currentWeather}:CurrentWeatherProps) {
   )
 }
 
-export default CurrentWeather;
+export default MyCityWeather;
