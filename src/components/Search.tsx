@@ -4,19 +4,16 @@ import { AsyncPaginate } from 'react-select-async-paginate';
 
 import { options, url } from '../libs/apiData';
 import { cityType, searchDataProps } from '../type';
-import useStore from '../hooks/useStore';
 
 interface SearchProps {
     handleSearchChange: (value: searchDataProps) => void;
 }
 
 function Search({ handleSearchChange }: SearchProps) {
-    const setSearchData=useStore((state)=>state.setSearchData);
     const [search, setSearch] = useState<searchDataProps>();
     const handleChange = (searchData: searchDataProps) => {
         setSearch(searchData)
         handleSearchChange(searchData)
-        setSearchData(searchData)
     }
     const loadOptions = (value: string) => {
         // console.log(value)

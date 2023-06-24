@@ -6,14 +6,15 @@ import CurrentWeather from './components/CurrentWeather'
 import Search from './components/Search'
 import { openWeatherUrl } from './libs/apiData';
 import { searchDataProps } from './type';
-import useStore from './hooks/useStore';
 import MyCityWeather from './components/MyCityWeather';
+import "./App.css"
+import MyCityForecast from './components/MyCityForecast';
 
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState();
   const [myCityWeather,setMyCityWeather]=useState()
-  const searchData = useStore((state) => state.searchData);
+  const [myCityForecast,setMyCityForecast]=useState()
   const [forecast, setForecast] = useState();
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
@@ -26,8 +27,8 @@ function App() {
   const currentLon = coords?.longitude.toString();
   const endPoints =
     [
-      `${openWeatherUrl}weather?lat=${currentLat}&lon=${currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,
-      `${openWeatherUrl}forecast?lat=${currentLat}&lon=${currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,
+      `${openWeatherUrl}weather?lat=${currentLat}&lon=${currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`,
+      `${openWeatherUrl}forecast?lat=${currentLat}&lon=${currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`,
     ]
   useEffect(() => {
     const fetchWeather = async () => {
@@ -36,6 +37,7 @@ function App() {
           const weatherResponse = res[0].data;
           const forecastResponse = res[1].data;
           setMyCityWeather(weatherResponse);
+          setMyCityForecast(forecastResponse);
           console.log(weatherResponse)
           console.log(forecastResponse)
         })
@@ -44,7 +46,6 @@ function App() {
     fetchWeather()
 
   }, [currentLat, currentLon])
-  console.log(currentLat, currentLon)
   const handleSearchChange = (searchData: searchDataProps) => {
 
     // console.log(searchData)
@@ -52,8 +53,8 @@ function App() {
 
     const endPoints =
       [
-        `${openWeatherUrl}weather?lat=${latitude ? latitude : currentLat}&lon=${longitude ? latitude : currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,
-        `${openWeatherUrl}forecast?lat=${latitude ? latitude : currentLat}&lon=${longitude ? longitude : currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,
+        `${openWeatherUrl}weather?lat=${latitude ? latitude : currentLat}&lon=${longitude ? latitude : currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`,
+        `${openWeatherUrl}forecast?lat=${latitude ? latitude : currentLat}&lon=${longitude ? longitude : currentLon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`,
       ]
 
     axios.all(endPoints.map(url => axios.get(url)))
@@ -76,9 +77,14 @@ function App() {
           <Search handleSearchChange={handleSearchChange} />
         </div>
         <div className="flex justify-between px-[5%]">
-
-        {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
+        <div className="">
         <MyCityWeather MyCityWeather={myCityWeather}/>
+        <MyCityForecast data={myCityForecast}/>
+        </div>
+        <div className="">
+        {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
+
+        </div>
         </div>
       </div>
     </>

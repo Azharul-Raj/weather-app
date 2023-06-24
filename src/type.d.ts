@@ -10,12 +10,20 @@ export interface searchDataProps{
     label:string;
 }
 
-export interface currentWeatherType{
+export interface WeatherType{
     location:string;
     name:string;
     main:Temperature;
     weather:WeatherData;
     wind:Wind;
+}
+
+export interface ForecastType {
+    city:{
+        name:string;
+        country:string;
+    }
+    list:WeatherType[]
 }
 
 type Temperature={

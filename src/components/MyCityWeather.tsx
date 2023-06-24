@@ -1,11 +1,10 @@
-import { currentWeatherType } from "../type";
+import { WeatherType } from "../type";
 
 interface CurrentWeatherProps{
-  MyCityWeather?:currentWeatherType
+  MyCityWeather?:WeatherType
 }
 
 function MyCityWeather({MyCityWeather}:CurrentWeatherProps) {
-  console.log(MyCityWeather?.weather[0].icon)
 
   return (
     <div className="flex justify-center items-center">
@@ -17,27 +16,24 @@ function MyCityWeather({MyCityWeather}:CurrentWeatherProps) {
         <div className="flex mb-4 justify-between items-center">
           <div className="">
             <img src={`icons/${MyCityWeather?.weather[0]?.icon}.png`} alt="sky image" />
-
+            <p className="text-white text-semibold">{MyCityWeather?.weather[0]?.main}, {MyCityWeather?.weather[0]?.description}</p>
           </div>
           <div className="text-right">
-            <h3 className="font-bold text-4xl mb-0"><span>39&deg;</span></h3>
-          </div>
-          <div className="">
-
+            <h3 className="font-bold text-4xl mb-0 text-white"><span>{MyCityWeather?.main.temp}&deg; C</span></h3>
           </div>
         </div>
         <div className="block sm:flex justify-between items-center flex-wrap">
           <div className="w-full sm:w-1/2">
-            <div className="flex mb-2 justify-between items-center"><span>Temp</span><small className="px-2 inline-block">39.11&nbsp;&deg;</small></div>
+            <div className="flex mb-2 justify-between items-center text-white"><span>Pressure</span><small className="px-2 inline-block">{MyCityWeather?.main.pressure}&nbsp;&deg; mb</small></div>
           </div>
           <div className="w-full sm:w-1/2">
-            <div className="flex mb-2 justify-between items-center"><span>Feels like</span><small className="px-2 inline-block">33.33&nbsp;&deg;</small></div>
+            <div className="flex mb-2 justify-between items-center text-white"><span>Feels like</span><small className="px-2 inline-block">{MyCityWeather?.main.feels_like}&nbsp;&deg; C</small></div>
           </div>
           <div className="w-full sm:w-1/2">
-            <div className="flex mb-2 justify-between items-center"><span>Temp min</span><small className="px-2 inline-block">24.9&nbsp;&deg;</small></div>
+            <div className="flex mb-2 justify-between items-center text-white"><span>Temp min</span><small className="px-2 inline-block">{MyCityWeather?.main.temp_min}&nbsp;&deg; C</small></div>
           </div>
           <div className="w-full sm:w-1/2">
-            <div className="flex mb-2 justify-between items-center"><span>Temp max</span><small className="px-2 inline-block">39&nbsp;&deg;</small></div>
+            <div className="flex mb-2 justify-between items-center text-white"><span>Temp max</span><small className="px-2 inline-block">{MyCityWeather?.main.temp_max}&nbsp;&deg; C</small></div>
           </div>
         </div>
       </div>
