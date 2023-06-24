@@ -3,17 +3,17 @@ import { useState } from 'react';
 import { AsyncPaginate } from 'react-select-async-paginate';
 
 import { options, url } from '../libs/apiData';
-import { cityType } from '../type';
+import { cityType, searchDataProps } from '../type';
 
 interface SearchProps {
-    handleSearchChange: (value: string) => void;
+    handleSearchChange: (value: searchDataProps) => void;
 }
 
 
 
 function Search({ handleSearchChange }: SearchProps) {
-    const [search, setSearch] = useState("");
-    const handleChange = (searchData: string) => {
+    const [search, setSearch] = useState<searchDataProps>();
+    const handleChange = (searchData: searchDataProps) => {
         setSearch(searchData)
         handleSearchChange(searchData)
     }

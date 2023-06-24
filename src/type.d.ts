@@ -4,3 +4,8 @@ export interface cityType{
     longitude:number;
     countryCode:string;
 }
+
+export interface searchDataProps{
+    value:string;
+    label:string;
+}
