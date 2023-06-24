@@ -1,4 +1,5 @@
 import { WeatherType } from "../type";
+import "../App.css"
 
 interface CurrentWeatherProps{
   MyCityWeather?:WeatherType
@@ -8,7 +9,7 @@ function MyCityWeather({MyCityWeather}:CurrentWeatherProps) {
 
   return (
     <div className="flex justify-center items-center">
-    <div className='bg-[#3BB878] lg:w-[500px] shadow rounded-lg '>
+    <div className='weatherCard lg:w-[500px] shadow rounded-lg border bottom-2 border-gray-400'>
       <div className="px-6 py-6 relative">
           <div className="flex justify-center">
             <h5 className="mb-0 font-medium text-xl text-white">Your City  {MyCityWeather?.name}</h5>
@@ -19,7 +20,7 @@ function MyCityWeather({MyCityWeather}:CurrentWeatherProps) {
             <p className="text-white text-semibold">{MyCityWeather?.weather[0]?.main}, {MyCityWeather?.weather[0]?.description}</p>
           </div>
           <div className="text-right">
-            <h3 className="font-bold text-4xl mb-0 text-white"><span>{MyCityWeather?.main.temp}&deg; C</span></h3>
+            <h3 className="font-bold text-4xl mb-0 text-white"><span>{MyCityWeather?.main.temp} &deg;C</span></h3>
           </div>
         </div>
         <div className="block sm:flex justify-between items-center flex-wrap">

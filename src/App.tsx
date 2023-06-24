@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useGeolocated } from 'react-geolocated';
 
-import CurrentWeather from './components/CurrentWeather'
+import CurrentWeather from './components/SearchedCityWeather'
 import Search from './components/Search'
 import { openWeatherUrl } from './libs/apiData';
 import { searchDataProps } from './type';
 import MyCityWeather from './components/MyCityWeather';
 import "./App.css"
-import MyCityForecast from './components/MyCityForecast';
+import MyCityForecast from './components/CityForecast';
 
 
 function App() {
-  const [currentWeather, setCurrentWeather] = useState();
+  const [searchedWeather, setSearchedWeather] = useState();
   const [myCityWeather,setMyCityWeather]=useState()
   const [myCityForecast,setMyCityForecast]=useState()
   const [forecast, setForecast] = useState();
@@ -46,6 +46,7 @@ function App() {
     fetchWeather()
 
   }, [currentLat, currentLon])
+  // 
   const handleSearchChange = (searchData: searchDataProps) => {
 
     // console.log(searchData)
@@ -61,7 +62,7 @@ function App() {
       .then(res => {
         const weatherResponse = res[0].data;
         const forecastResponse = res[1].data;
-        setCurrentWeather({ location: searchData.label, ...weatherResponse });
+        setSearchedWeather({ location: searchData.label, ...weatherResponse });
         console.log(weatherResponse)
         console.log(forecastResponse)
       })
@@ -71,7 +72,7 @@ function App() {
 
   return (
     <>
-      <div className="">
+      <div className="skyBackground">
         <div className="px-[10%] py-2 rounded-lg">
 
           <Search handleSearchChange={handleSearchChange} />
@@ -82,7 +83,7 @@ function App() {
         <MyCityForecast data={myCityForecast}/>
         </div>
         <div className="">
-        {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
+        {searchedWeather && <CurrentWeather currentWeather={searchedWeather} />}
 
         </div>
         </div>

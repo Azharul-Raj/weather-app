@@ -3,3 +3,16 @@
 *{
     font-family: poppins;
 }
+
+.skyBackground{
+    background: radial-gradient(circle at -3.7% -5%, rgb(113, 213, 225) 0.3%, rgb(73, 146, 226) 90.5%);
+    /* background: linear-gradient(-225deg, #2CD8D5 0%, #6B8DD6 48%, #8E37D7 100%); */
+}
+
+.weatherCard{
+    background: linear-gradient(179.2deg, rgb(21, 21, 212) 0.9%, rgb(53, 220, 243) 95.5%);
+}
+
+.accordionBackground{
+    background: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+}

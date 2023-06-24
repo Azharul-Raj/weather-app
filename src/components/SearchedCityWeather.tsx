@@ -1,7 +1,7 @@
-import { currentWeatherType } from "../type";
+import { WeatherType } from "../type";
 
 interface CurrentWeatherProps{
-  currentWeather?:currentWeatherType
+  currentWeather?:WeatherType
 }
 
 function CurrentWeather({currentWeather}:CurrentWeatherProps) {

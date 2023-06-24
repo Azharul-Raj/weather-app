@@ -5,14 +5,13 @@ interface MyCityForecastProps{
     data:ForecastType|undefined
 }
 
-const WeekDays=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
 function MyCityForecast({data}:MyCityForecastProps) {
     
     return (
-        <div className='w-[500px] my-2'>
+        <div className='w-[500px]'>
             {
-                data?.list.slice(0,7).map((weather,idx)=><Accordion key={idx} weather={weather}/>)
+                data?.list.slice(0,7).map((weather,idx)=><Accordion key={idx} id={idx} weather={weather}/>)
             }
         </div>
     )
